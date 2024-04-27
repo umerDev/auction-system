@@ -1,13 +1,6 @@
 import { Database } from "../db/Database";
-import { Auction, Bid } from "./AuctionTypes";
+import { IAuction, Bid } from "./AuctionTypes";
 import { IAuctionSystem } from "./IAuctionSystem";
-
-//
-// Create Auction with time limit and starting price
-// Incoming bids
-// Persist bid to db
-// Once time limit expire select highest bid
-//
 
 export class AuctionSystem implements IAuctionSystem {
   private database: Database;
@@ -16,22 +9,27 @@ export class AuctionSystem implements IAuctionSystem {
     this.database = database;
   }
 
-  HighestBid(): string {
-    //get highest bid from db
-    return "HighestBid";
+  async HighestBid(productId: string) {
+    if (!productId) return null;
+
+    const highestBid = await this.database.GetHighestBid(productId);
+
+    if (!highestBid) return null;
+
+    return highestBid;
   }
 
-  CreateAuction = (auction: Auction): Auction | null => {
+  CreateAuction = (auction: IAuction): IAuction | null => {
     if (!auction.productName) return null;
 
     return auction;
   };
 
-  IncomingBid = async (bid: Bid): Promise<Bid | null> => {
-    if (!bid.price) return null;
+  IncomingBid = async (auction: IAuction): Promise<IAuction | null> => {
+    if (!auction.productId) return null;
 
-    await this.database.SaveBid(bid);
+    await this.database.SaveBid(auction);
 
-    return bid;
+    return auction;
   };
 }

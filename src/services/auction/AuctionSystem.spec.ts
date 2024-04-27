@@ -1,7 +1,7 @@
 import { mockDeep } from "jest-mock-extended";
 import { IDatabase } from "../db/IDatabase";
 import { AuctionSystem } from "./AuctionSystem";
-import { Auction, Bid } from "./AuctionTypes";
+import { IAuction, Bid } from "./AuctionTypes";
 
 export const testDate = "2024-04-27T07:54:52.284Z";
 
@@ -40,7 +40,7 @@ describe("AuctionSystem().IncomingBid", () => {
 describe("AuctionSystem().CreateAuction", () => {
   it("should create a new Auction based of params", () => {
     //arrange
-    const newAuction: Auction = {
+    const newAuction: IAuction = {
       productName: "PS5",
       startingPrice: 434.0,
       acceptedPrice: null,
@@ -57,7 +57,7 @@ describe("AuctionSystem().CreateAuction", () => {
 
   it("should return null if no product name", () => {
     //arrange
-    const newAuction: Auction = {
+    const newAuction: IAuction = {
       bidAccepted: true,
       productName: "",
       startingPrice: 434.0,

@@ -1,16 +1,18 @@
-export type Auction = {
-  productName: string;
-  startingPrice: number;
-  acceptedPrice: number | null;
-  timeLimit: Date;
-  bidAccepted: boolean;
-};
-
-export type Auctions = {
-  auctions: Auction[];
-};
-
 export type Bid = {
   bidId: string;
-  price: number | null;
+  price?: number;
+};
+
+export interface IAuction {
+  productName: string;
+  productId: string;
+  startingPrice: number;
+  acceptedPrice?: number;
+  timeLimit: Date;
+  bidAccepted: boolean;
+  bids: Bid[];
+}
+
+export type Auctions = {
+  auctions: IAuction[];
 };

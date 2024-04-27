@@ -1,5 +1,12 @@
 Auction system
 
-terms
+Terms
 In Bidding vs Auction, bidding is when a person makes an offer on an item, 
 while an auction is the event where many people compete by bidding to buy something.
+
+How it works
+1. Auctions are listed in the Auctions.json file
+2. Bids are sent in via a message bus
+
+How to run
+1. docker compose up

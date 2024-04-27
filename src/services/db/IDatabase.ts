@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
-import { Bid } from "../auction/AuctionTypes";
+import { IAuction } from "../auction/AuctionTypes";
 
 export interface IDatabase {
-  SaveBid(bid: Bid): Promise<mongoose.Document<unknown>>;
-  GetHighestBid(): Bid;
+  SaveBid(auction: IAuction): Promise<mongoose.Document<unknown>>;
+  GetHighestBid(
+    productName: string
+  ): Promise<mongoose.Document<unknown> | null>;
   Connect(): Promise<void | Error>;
 }

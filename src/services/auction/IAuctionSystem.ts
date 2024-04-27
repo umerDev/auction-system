@@ -1,7 +1,7 @@
-import { Auction, Bid } from "./AuctionTypes";
+import { IAuction, Bid } from "./AuctionTypes";
 
 export interface IAuctionSystem {
-  CreateAuction(auction: Auction): Auction | null;
-  IncomingBid(bid: Bid): Promise<Bid | null>;
-  HighestBid(): string;
+  CreateAuction(auction: IAuction): IAuction | null;
+  IncomingBid(auction: IAuction): Promise<IAuction | null>;
+  HighestBid(productName: string);
 }

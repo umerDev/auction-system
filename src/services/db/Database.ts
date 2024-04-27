@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import { Bid } from "../auction/AuctionTypes";
+import mongoose, { HydratedDocument } from "mongoose";
+import { IAuction, Bid } from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
-import { BidModel } from "./Models";
+import { AuctionModel } from "./Models";
 
 export class Database implements IDatabase {
   async Connect(): Promise<void | Error> {
@@ -19,18 +19,25 @@ export class Database implements IDatabase {
     }
   }
 
-  async SaveBid(bid: Bid) {
-    const insertBid = await BidModel.create({
-      bidId: bid.bidId,
-      price: bid.price,
+  async SaveBid(auction: IAuction) {
+    const auctionDocument: HydratedDocument<IAuction> = new AuctionModel({
+      productId: auction.productId,
+      productName: auction.productName,
+      startingPrice: auction.startingPrice,
+      acceptedPrice: auction.acceptedPrice,
+      bidAccepted: auction.bidAccepted,
+      bids: auction.bids,
     });
+
+    const insertBid = await AuctionModel.create(auctionDocument);
+
     return insertBid;
   }
 
-  GetHighestBid(): Bid {
-    return {
-      bidId: "umer",
-      price: 200,
-    };
+  async GetHighestBid(productId: string) {
+    const findProduct = AuctionModel.findById(productId);
+    findProduct.sort({ price: -1 }).limit(1);
+
+    return findProduct;
   }
 }

@@ -1,18 +1,22 @@
 {
   "auctions": [
     {
-      "productName": "PS5",
+      "productName": "Playstation 5",
+      "productId": "ps5",
       "startingPrice": 400,
       "acceptedPrice": null,
       "timeLimit": "2024-04-27T07:54:52.284Z",
-      "bidAccepted": false
+      "bidAccepted": false,
+      "bids": []
     },
     {
-      "productName": "Headset",
+      "productName": "PS5 Headset",
+      "productId": "headset",
       "startingPrice": 40,
       "acceptedPrice": null,
       "timeLimit": "2024-04-27T07:54:52.284Z",
-      "bidAccepted": false
+      "bidAccepted": false,
+      "bids": []
     }
   ]
 }
