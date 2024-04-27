@@ -4,6 +4,7 @@
   "description": "Auction",
   "main": "main.ts",
   "scripts": {
+    "build": "npx tsc",
     "start": "npx ts-node main.ts",
     "test": "jest --updateSnapshot --coverage"
   },

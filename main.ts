@@ -26,10 +26,19 @@ const setupAuctions = () => {
   for (let i = 0; i < loadAuctions.auctions.length; i++) {
     const currentAuction = loadAuctions.auctions[i];
     auctionSystem.CreateAuction(currentAuction);
+    console.log(currentAuction);
   }
 };
+
+(async () => {
+  await setupDatabase();
+  setupAuctions();
+})().catch((e) => {
+  console.error(`error occured: ${e}`);
+});
 
 // todo
 // test mongo db connection
 // save to bid to db
 // get bid
+// create api routes to persist

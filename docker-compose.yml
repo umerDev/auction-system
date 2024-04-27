@@ -39,9 +39,9 @@ services:
       - DB_PORT=$MONGODB_DOCKER_PORT
     command: npm run start
     external_links:
-      - mongo
+      - mongodb
     depends_on:
-      - mongo
+      - mongodb
     restart: unless-stopped
 
     networks:
