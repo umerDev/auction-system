@@ -6,6 +6,10 @@ export type Auction = {
   bidAccepted: boolean;
 };
 
+export type Auctions = {
+  auctions: Auction[];
+};
+
 export type Bid = {
   bidId: string;
   price: number | null;

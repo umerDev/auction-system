@@ -72,3 +72,16 @@ describe("AuctionSystem().CreateAuction", () => {
     expect(createAuction).toEqual(null);
   });
 });
+
+describe("AuctionSystem().HighestBid", () => {
+  it("should return the highest bid", () => {
+    //arrange
+    const highestBid = "HighestBid";
+
+    //act
+    const getHighestBid = new AuctionSystem(database).HighestBid();
+
+    //assert
+    expect(getHighestBid).toEqual(highestBid);
+  });
+});

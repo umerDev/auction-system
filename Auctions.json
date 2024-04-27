@@ -1,0 +1,18 @@
+{
+  "auctions": [
+    {
+      "productName": "PS5",
+      "startingPrice": 400,
+      "acceptedPrice": null,
+      "timeLimit": "2024-04-27T07:54:52.284Z",
+      "bidAccepted": false
+    },
+    {
+      "productName": "Headset",
+      "startingPrice": 40,
+      "acceptedPrice": null,
+      "timeLimit": "2024-04-27T07:54:52.284Z",
+      "bidAccepted": false
+    }
+  ]
+}

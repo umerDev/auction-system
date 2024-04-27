@@ -7,16 +7,18 @@ import { IAuctionSystem } from "./IAuctionSystem";
 // Incoming bids
 // Persist bid to db
 // Once time limit expire select highest bid
+//
 
 export class AuctionSystem implements IAuctionSystem {
   private database: Database;
 
   constructor(database: Database) {
-    this.database = this.database;
+    this.database = database;
   }
 
   HighestBid(): string {
-    throw new Error("Method not implemented.");
+    //get highest bid from db
+    return "HighestBid";
   }
 
   CreateAuction = (auction: Auction): Auction | null => {
@@ -25,8 +27,10 @@ export class AuctionSystem implements IAuctionSystem {
     return auction;
   };
 
-  IncomingBid = (bid: Bid): Bid | null => {
+  IncomingBid = async (bid: Bid): Promise<Bid | null> => {
     if (!bid.price) return null;
+
+    await this.database.SaveBid(bid);
 
     return bid;
   };
