@@ -1,7 +1,11 @@
+import { mockDeep } from "jest-mock-extended";
+import { IDatabase } from "../db/IDatabase";
 import { AuctionSystem } from "./AuctionSystem";
 import { Auction, Bid } from "./AuctionTypes";
 
 export const testDate = "2024-04-27T07:54:52.284Z";
+
+let database = mockDeep<IDatabase>();
 
 describe("AuctionSystem().IncomingBid", () => {
   it("should verify incoming bid", () => {
@@ -12,7 +16,7 @@ describe("AuctionSystem().IncomingBid", () => {
     };
 
     //act
-    const acceptBid = new AuctionSystem().IncomingBid(bid);
+    const acceptBid = new AuctionSystem(database).IncomingBid(bid);
 
     //assert
     expect(acceptBid).toEqual(bid);
@@ -26,7 +30,7 @@ describe("AuctionSystem().IncomingBid", () => {
     };
 
     //act
-    const acceptBid = new AuctionSystem().IncomingBid(bid);
+    const acceptBid = new AuctionSystem(database).IncomingBid(bid);
 
     //assert
     expect(acceptBid).toEqual(null);
@@ -45,7 +49,7 @@ describe("AuctionSystem().CreateAuction", () => {
     };
 
     //act
-    const createAuction = new AuctionSystem().CreateAuction(newAuction);
+    const createAuction = new AuctionSystem(database).CreateAuction(newAuction);
 
     //assert
     expect(createAuction).toEqual(newAuction);
@@ -62,7 +66,7 @@ describe("AuctionSystem().CreateAuction", () => {
     };
 
     //act
-    const createAuction = new AuctionSystem().CreateAuction(newAuction);
+    const createAuction = new AuctionSystem(database).CreateAuction(newAuction);
 
     //assert
     expect(createAuction).toEqual(null);
