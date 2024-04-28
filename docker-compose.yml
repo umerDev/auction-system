@@ -17,26 +17,6 @@ services:
     networks:
       private-net:
 
-  mongo-express:
-    image: mongo-express
-    environment:
-      ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
-      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
-      ME_CONFIG_BASICAUTH_USERNAME: ${MONGOEXPRESS_LOGIN}
-      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGOEXPRESS_PASSWORD}
-    ports:
-      - "8081:8081"
-    volumes:
-      - mongodb_data_container:/data/db
-    depends_on:
-      - mongo
-    networks:
-      private-net:
-
   auction:
     build:
       context: .
