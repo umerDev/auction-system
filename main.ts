@@ -45,14 +45,3 @@ const setupAuctions = async (database: Database) => {
   const error = e as Error;
   console.error(`error occured: ${error.message}`);
 });
-
-// todo
-// test mongo db connection - done
-// create api routes - done
-//  - save bid - done
-//  - get bid - done
-// Create time mechanism - done
-// fix tests
-
-// persist auctions - done
-// start timer - done

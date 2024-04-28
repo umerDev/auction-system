@@ -1,8 +1,9 @@
-import { Bid } from "../auction/AuctionTypes";
+import { AuctionState, Bid, IAuction } from "../auction/AuctionTypes";
 
 export interface IDatabase {
-  SaveBid(bid: Bid);
-  GetHighestBid(productName: string);
+  SaveBid(bid: Bid): Promise<unknown>;
+  GetHighestBid(productName: string): Promise<Bid>;
   Connect(): Promise<void | Error>;
-  SetAcceptedPrice(productId: string, acceptedPrice: number);
+  SetAcceptedPrice(productId: string, acceptedPrice: number): Promise<number>;
+  CreateAuction(auction: IAuction): Promise<AuctionState>;
 }

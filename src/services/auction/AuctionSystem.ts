@@ -47,7 +47,7 @@ export class AuctionSystem implements IAuctionSystem {
   };
 
   SetAcceptedPrice = async (productId: string, acceptedPrice: number) => {
-    if (!productId || !acceptedPrice) return;
+    if (!productId || !acceptedPrice) return null;
 
     const accepted = await this.database.SetAcceptedPrice(
       productId,

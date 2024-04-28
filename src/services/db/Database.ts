@@ -1,10 +1,5 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import {
-  AuctionState,
-  Bid,
-  BiddingState,
-  IAuction,
-} from "../auction/AuctionTypes";
+import { AuctionState, Bid, IAuction } from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
 import { AuctionModel } from "./Models";
 
@@ -82,7 +77,7 @@ export class Database implements IDatabase {
     await AuctionModel.findOneAndUpdate(
       { productId: productId },
       {
-        $push: {
+        $set: {
           acceptedPrice: acceptedPrice,
         },
       },
