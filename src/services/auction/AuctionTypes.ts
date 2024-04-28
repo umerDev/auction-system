@@ -9,7 +9,7 @@ export interface IAuction {
   productId: string;
   startingPrice: number;
   acceptedPrice?: number;
-  timeLimit: Date;
+  timeLimit: number;
   bidAccepted: boolean;
   bids: Bid[];
 }
@@ -17,3 +17,7 @@ export interface IAuction {
 export type Auctions = {
   auctions: IAuction[];
 };
+
+export enum BiddingState {
+  FINISHED = "FINISHED",
+}

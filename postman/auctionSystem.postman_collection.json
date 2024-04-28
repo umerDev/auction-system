@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "2cfb4a8a-d9ae-4ed3-bc9e-7cc1f2c279dc",
+		"name": "auctionSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13214219"
+	},
+	"item": [
+		{
+			"name": "HighestBid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/highest-bid?productId=headset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"highest-bid"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "headset"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SubmitBid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\":\"ps5\",\n    \"bidId\":\"umer\",\n    \"price\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/bid/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"bid",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

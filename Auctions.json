@@ -5,7 +5,7 @@
       "productId": "ps5",
       "startingPrice": 400,
       "acceptedPrice": null,
-      "timeLimit": "2024-04-27T07:54:52.284Z",
+      "timeLimit": "30000",
       "bidAccepted": false,
       "bids": []
     },
@@ -14,7 +14,7 @@
       "productId": "headset",
       "startingPrice": 40,
       "acceptedPrice": null,
-      "timeLimit": "2024-04-27T07:54:52.284Z",
+      "timeLimit": "30000",
       "bidAccepted": false,
       "bids": []
     }

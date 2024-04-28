@@ -5,7 +5,11 @@ import { AuctionSystem } from "./src/services/auction/AuctionSystem";
 import { Database } from "./src/services/db/Database";
 import { Auctions } from "./src/services/auction/AuctionTypes";
 import { AuctionRoutes } from "./src/services/api/server";
+import { ClassTimer } from "./src/services/timer/Timer";
+
 dotenv.config();
+
+let auctionSystem: AuctionSystem;
 
 // connect to db
 const setupDatabase = async () => {
@@ -15,31 +19,40 @@ const setupDatabase = async () => {
 };
 
 // load all auctions
-const setupAuctions = (auctionSystem: AuctionSystem) => {
+const setupAuctions = async (database: Database) => {
   const loadAuctions: Auctions = JSON.parse(
     fs.readFileSync("Auctions.json", "utf-8")
   );
+
   for (let i = 0; i < loadAuctions.auctions.length; i++) {
     const currentAuction = loadAuctions.auctions[i];
-    auctionSystem.CreateAuction(currentAuction);
-    console.log(currentAuction);
+    auctionSystem = new AuctionSystem(
+      database,
+      new ClassTimer(loadAuctions.auctions[i].timeLimit)
+    );
+
+    await auctionSystem.CreateAuction(currentAuction);
   }
 };
 
 (async () => {
   const database = await setupDatabase();
-  const auctionSystem = new AuctionSystem(database);
 
-  setupAuctions(auctionSystem);
+  await setupAuctions(database);
+
   AuctionRoutes(auctionSystem);
-})().catch((e) => {
-  console.error(`error occured: ${e}`);
+})().catch((e: unknown) => {
+  const error = e as Error;
+  console.error(`error occured: ${error.message}`);
 });
 
 // todo
 // test mongo db connection - done
 // create api routes - done
-//  - save bid
-//  - get bid
-//
+//  - save bid - done
+//  - get bid - done
+// Create time mechanism - done
 // fix tests
+
+// persist auctions - done
+// start timer - done

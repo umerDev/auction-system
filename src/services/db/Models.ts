@@ -10,7 +10,7 @@ const auctionSchema = new Schema<IAuction, auctionModel>({
   productId: { type: String },
   startingPrice: { type: Number },
   acceptedPrice: { type: Number },
-  timeLimit: { type: Date },
+  timeLimit: { type: Number },
   bidAccepted: { type: Boolean },
   bids: {
     type: [

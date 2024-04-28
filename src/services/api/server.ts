@@ -1,5 +1,5 @@
 import { IAuctionSystem } from "../auction/IAuctionSystem";
-import { Bid, IAuction } from "../auction/AuctionTypes";
+import { Bid, BiddingState, IAuction } from "../auction/AuctionTypes";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 
@@ -10,26 +10,38 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
-  app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to Express & TypeScript Server");
-  });
-
   app.get("/api/highest-bid", async (req, res) => {
-    console.log(req.query.productId);
     const highest = await AuctionSystem.HighestBid(
       req.query.productId as unknown as string
     );
-    console.log(highest);
-    res.sendStatus(204);
+    return res.send({ highest });
   });
 
   app.post("/api/bid", async (req: Request, res: Response) => {
-    console.log(req.body);
     const body = req.body as unknown as Bid;
-    console.log(body);
+
     if (!body) return res.status;
-    await AuctionSystem.IncomingBid(body);
-    res.sendStatus(201);
+
+    const bid = await AuctionSystem.IncomingBid(body);
+
+    if (bid === BiddingState.FINISHED) {
+      return res.send({ message: "bidding has finished for this item" });
+    }
+
+    return res.send({ message: `created bid for ${bid.productId}` });
+  });
+
+  app.post("/api/create-auction", async (req: Request, res: Response) => {
+    const body = req.body as unknown as IAuction;
+
+    if (!body) return res.status;
+
+    const createAuction = await AuctionSystem.CreateAuction(body);
+
+    if (createAuction) {
+      return res.sendStatus(201);
+    }
+    return res.sendStatus(400);
   });
 
   app.listen(port, () => {

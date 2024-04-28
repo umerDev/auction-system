@@ -6,9 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node build/main.js",
-    "test": "jest --updateSnapshot --coverage",
-    "dev:tsc": "tsc --watch -p .",
-    "dev:serve": "nodemon -e js -w lib lib/main.js"
+    "test": "jest --updateSnapshot --coverage"
   },
   "author": "Umer",
   "license": "ISC",
