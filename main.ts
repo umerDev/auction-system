@@ -1,28 +1,27 @@
 // load auctions from json ?
 // accept bids from message bus
 // return highest bids for each auction
+import * as dotenv from "dotenv";
+import * as fs from "fs";
 
-import fs from "fs";
 import { AuctionSystem } from "./src/services/auction/AuctionSystem";
 import { Database } from "./src/services/db/Database";
 import { Auctions } from "./src/services/auction/AuctionTypes";
-
-let database: Database;
+import { AuctionRoutes } from "./src/services/api/server";
+dotenv.config();
 
 // connect to db
 const setupDatabase = async () => {
-  database = new Database();
+  const database = new Database();
   await database.Connect();
+  return database;
 };
 
 // load all auctions
-const setupAuctions = () => {
+const setupAuctions = (auctionSystem: AuctionSystem) => {
   const loadAuctions: Auctions = JSON.parse(
     fs.readFileSync("Auctions.json", "utf-8")
   );
-
-  const auctionSystem = new AuctionSystem(database);
-
   for (let i = 0; i < loadAuctions.auctions.length; i++) {
     const currentAuction = loadAuctions.auctions[i];
     auctionSystem.CreateAuction(currentAuction);
@@ -31,14 +30,18 @@ const setupAuctions = () => {
 };
 
 (async () => {
-  await setupDatabase();
-  setupAuctions();
+  const database = await setupDatabase();
+  const auctionSystem = new AuctionSystem(database);
+
+  setupAuctions(auctionSystem);
+  AuctionRoutes(auctionSystem);
 })().catch((e) => {
   console.error(`error occured: ${e}`);
 });
 
 // todo
-// test mongo db connection
+// test mongo db connection - done
+// create api routes
 // save to bid to db
 // get bid
-// create api routes to persist
+// fix tests

@@ -1,5 +1,5 @@
 import { Database } from "../db/Database";
-import { IAuction, Bid } from "./AuctionTypes";
+import { IAuction } from "./AuctionTypes";
 import { IAuctionSystem } from "./IAuctionSystem";
 
 export class AuctionSystem implements IAuctionSystem {

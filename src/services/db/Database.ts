@@ -7,7 +7,12 @@ export class Database implements IDatabase {
   async Connect(): Promise<void | Error> {
     try {
       const connection = await mongoose.connect(
-        "mongodb://mongo:27017/auction"
+        "mongodb://mongo:27017/auction",
+        {
+          user: process.env.MONGODB_USER,
+          pass: process.env.MONGODB_PASSWORD,
+          authSource: "admin",
+        }
       );
       if (connection) {
         console.log("Database Connected Successfully...");
@@ -20,6 +25,7 @@ export class Database implements IDatabase {
   }
 
   async SaveBid(auction: IAuction) {
+    console.log("Saving bid");
     const auctionDocument: HydratedDocument<IAuction> = new AuctionModel({
       productId: auction.productId,
       productName: auction.productName,
