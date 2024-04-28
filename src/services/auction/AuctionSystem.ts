@@ -1,6 +1,6 @@
 import { Database } from "../db/Database";
 import { ClassTimer } from "../timer/Timer";
-import { Bid, BiddingState, IAuction } from "./AuctionTypes";
+import { AuctionState, Bid, BiddingState, IAuction } from "./AuctionTypes";
 import { IAuctionSystem } from "./IAuctionSystem";
 
 export class AuctionSystem implements IAuctionSystem {
@@ -22,7 +22,7 @@ export class AuctionSystem implements IAuctionSystem {
     return highestBid;
   };
 
-  CreateAuction = async (auction: IAuction): Promise<IAuction | null> => {
+  CreateAuction = async (auction: IAuction): Promise<AuctionState> => {
     if (!auction.productId) return null;
 
     const createAuction = await this.database.CreateAuction(auction);

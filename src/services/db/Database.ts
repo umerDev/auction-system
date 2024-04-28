@@ -1,5 +1,10 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import { Bid, IAuction } from "../auction/AuctionTypes";
+import {
+  AuctionState,
+  Bid,
+  BiddingState,
+  IAuction,
+} from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
 import { AuctionModel } from "./Models";
 
@@ -56,7 +61,7 @@ export class Database implements IDatabase {
       bids: auction.bids,
     });
 
-    const insertAuction = await AuctionModel.findOneAndUpdate(
+    await AuctionModel.findOneAndUpdate(
       { productId: auction.productId },
       { $set: auctionDocument },
       {
@@ -64,7 +69,7 @@ export class Database implements IDatabase {
       }
     );
 
-    return insertAuction;
+    return AuctionState.CREATED;
   }
 
   async GetHighestBid(productId: string) {

@@ -1,10 +1,8 @@
 import { anyString, DeepMockProxy, mockDeep } from "jest-mock-extended";
 import { AuctionSystem } from "./AuctionSystem";
-import { IAuction, Bid } from "./AuctionTypes";
+import { IAuction, Bid, BiddingState, AuctionState } from "./AuctionTypes";
 import { Database } from "../db/Database";
 import { ClassTimer } from "../timer/Timer";
-import { AuctionModel } from "../db/Models";
-import { HydratedDocument } from "mongoose";
 
 export const testDate = "2024-04-27T07:54:52.284Z";
 
@@ -53,7 +51,7 @@ describe("AuctionSystem().IncomingBid", () => {
 });
 
 describe("AuctionSystem().CreateAuction", () => {
-  it.skip("should create a new Auction based of params", async () => {
+  it("should create a new Auction based of params", async () => {
     //arrange
     const newAuction: IAuction = {
       productName: "PS5 Headset",
@@ -65,16 +63,9 @@ describe("AuctionSystem().CreateAuction", () => {
       bids: [{ bidId: "PS5", productId: "ps5", price: 434.0 }],
     };
 
-    const auctionDocument: HydratedDocument<IAuction> = new AuctionModel({
-      productId: newAuction.productId,
-      productName: newAuction.productName,
-      startingPrice: newAuction.startingPrice,
-      acceptedPrice: newAuction.acceptedPrice,
-      bidAccepted: newAuction.bidAccepted,
-      bids: newAuction.bids,
-    });
-
-    database.CreateAuction.mockReturnValue(Promise.resolve(auctionDocument));
+    database.CreateAuction.mockReturnValue(
+      Promise.resolve(AuctionState.CREATED)
+    );
 
     //act
     const createAuction = await new AuctionSystem(
@@ -83,23 +74,8 @@ describe("AuctionSystem().CreateAuction", () => {
     ).CreateAuction(newAuction);
 
     //assert
-    const toMatch = {
-      _id: expect.any(String),
-      acceptedPrice: 0,
-      bidAccepted: false,
-      bids: [
-        {
-          _id: expect.any(String),
-          bidId: "PS5",
-          price: 434,
-        },
-      ],
-      productId: "headset",
-      productName: "PS5 Headset",
-      startingPrice: 40,
-    };
 
-    expect(createAuction).toMatchObject(toMatch);
+    expect(createAuction).toEqual("CREATED");
   });
 
   it("should return null if no product name", async () => {

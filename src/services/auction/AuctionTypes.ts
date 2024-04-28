@@ -21,3 +21,7 @@ export type Auctions = {
 export enum BiddingState {
   FINISHED = "FINISHED",
 }
+
+export enum AuctionState {
+  CREATED = "CREATED",
+}
