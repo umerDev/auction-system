@@ -29,8 +29,8 @@ while an auction is the event where many people compete by bidding to buy someth
 
 # Improvements
 
-1. use a message bus with FIFO, dlqs for bids
+1. Use a message bus with FIFO, dlqs for bids
 2. grpc with protobufs
-3. use concurrent programming language
-4. setup automation test via cicd, tear down environment
-5. data validation and error handing
+3. Setup performance tests i.e. k6
+4. Setup automation tests via cicd, tear down environment
+5. Data validation and error handing
