@@ -1,6 +1,3 @@
-// load auctions from json ?
-// accept bids from message bus
-// return highest bids for each auction
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
@@ -41,7 +38,8 @@ const setupAuctions = (auctionSystem: AuctionSystem) => {
 
 // todo
 // test mongo db connection - done
-// create api routes
-// save to bid to db
-// get bid
+// create api routes - done
+//  - save bid
+//  - get bid
+//
 // fix tests

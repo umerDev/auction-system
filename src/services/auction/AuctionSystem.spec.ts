@@ -11,15 +11,7 @@ let database = mockDeep<Database>();
 describe.skip("AuctionSystem().IncomingBid", () => {
   it("should verify incoming bid", async () => {
     //arrange
-    const auctionBid: IAuction = {
-      productName: "PS5 Headset",
-      productId: "headset",
-      startingPrice: 40,
-      acceptedPrice: null,
-      timeLimit: new Date("2024-04-27T07:54:52.284Z"),
-      bidAccepted: false,
-      bids: [{ bidId: "PS5", price: 434.0 }],
-    };
+    const auctionBid: Bid = { bidId: "PS5", productId: "ps5", price: 434.0 };
 
     //act
     const acceptBid = await new AuctionSystem(database).IncomingBid(auctionBid);
@@ -30,15 +22,7 @@ describe.skip("AuctionSystem().IncomingBid", () => {
 
   it("should return null if no price", () => {
     //arrange
-    const auctionBid: IAuction = {
-      productName: "PS5 Headset",
-      productId: "headset",
-      startingPrice: null,
-      acceptedPrice: null,
-      timeLimit: new Date("2024-04-27T07:54:52.284Z"),
-      bidAccepted: false,
-      bids: [{ bidId: "PS5", price: 434.0 }],
-    };
+    const auctionBid: Bid = { bidId: "PS5", productId: "ps5", price: 434.0 };
 
     //act
     const acceptBid = new AuctionSystem(database).IncomingBid(auctionBid);
@@ -58,7 +42,7 @@ describe.skip("AuctionSystem().CreateAuction", () => {
       acceptedPrice: 0,
       timeLimit: new Date("2024-04-27T07:54:52.284Z"),
       bidAccepted: false,
-      bids: [{ bidId: "PS5", price: 434.0 }],
+      bids: [{ bidId: "PS5", productId: "ps5", price: 434.0 }],
     };
 
     //act
@@ -77,7 +61,7 @@ describe.skip("AuctionSystem().CreateAuction", () => {
       acceptedPrice: 0,
       timeLimit: new Date("2024-04-27T07:54:52.284Z"),
       bidAccepted: false,
-      bids: [{ bidId: "PS5", price: 434.0 }],
+      bids: [{ bidId: "PS5", productId: "ps5", price: 434.0 }],
     };
 
     //act

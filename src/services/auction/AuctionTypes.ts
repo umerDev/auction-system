@@ -1,5 +1,6 @@
 export type Bid = {
   bidId: string;
+  productId: string;
   price?: number;
 };
 

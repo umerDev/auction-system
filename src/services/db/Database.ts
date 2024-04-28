@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import { IAuction } from "../auction/AuctionTypes";
+import { Bid, IAuction } from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
 import { AuctionModel } from "./Models";
 
@@ -24,20 +24,28 @@ export class Database implements IDatabase {
     }
   }
 
-  async SaveBid(auction: IAuction) {
-    console.log("Saving bid");
-    const auctionDocument: HydratedDocument<IAuction> = new AuctionModel({
-      productId: auction.productId,
-      productName: auction.productName,
-      startingPrice: auction.startingPrice,
-      acceptedPrice: auction.acceptedPrice,
-      bidAccepted: auction.bidAccepted,
-      bids: auction.bids,
-    });
+  async SaveBid(bid: Bid) {
+    console.log("Saving bid", bid);
+    // const auctionDocument: HydratedDocument<IAuction> = new AuctionModel({
+    //   productId: auction.productId,
+    //   productName: auction.productName,
+    //   startingPrice: auction.startingPrice,
+    //   acceptedPrice: auction.acceptedPrice,
+    //   bidAccepted: auction.bidAccepted,
+    //   bids: auction.bids,
+    // });
 
     const insertBid = await AuctionModel.findOneAndUpdate(
-      { productId: auction.productId },
-      auctionDocument,
+      { productId: bid.productId },
+      {
+        $push: {
+          bids: {
+            price: bid.price,
+            bidId: bid.bidId,
+            productId: bid.productId,
+          },
+        },
+      },
       {
         upsert: true,
       }
@@ -47,9 +55,8 @@ export class Database implements IDatabase {
   }
 
   async GetHighestBid(productId: string) {
-    const findProduct = AuctionModel.findById(productId);
-    const highestBid = findProduct.sort({ price: -1 }).limit(1);
+    const product = await AuctionModel.where("productId").equals(productId);
 
-    return highestBid;
+    return product;
   }
 }

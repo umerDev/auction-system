@@ -1,5 +1,5 @@
 import { IAuctionSystem } from "../auction/IAuctionSystem";
-import { IAuction } from "../auction/AuctionTypes";
+import { Bid, IAuction } from "../auction/AuctionTypes";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 
@@ -14,15 +14,19 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
     res.send("Welcome to Express & TypeScript Server");
   });
 
-  app.post("/clicked", (req, res) => {
-    console.log(req);
-    console.log(req.body);
-    res.sendStatus(201);
+  app.get("/api/highest-bid", async (req, res) => {
+    console.log(req.query.productId);
+    const highest = await AuctionSystem.HighestBid(
+      req.query.productId as unknown as string
+    );
+    console.log(highest);
+    res.sendStatus(204);
   });
 
   app.post("/api/bid", async (req: Request, res: Response) => {
     console.log(req.body);
-    const body = req.body as unknown as IAuction;
+    const body = req.body as unknown as Bid;
+    console.log(body);
     if (!body) return res.status;
     await AuctionSystem.IncomingBid(body);
     res.sendStatus(201);

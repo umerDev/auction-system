@@ -1,5 +1,5 @@
 import { Database } from "../db/Database";
-import { IAuction } from "./AuctionTypes";
+import { Bid, IAuction } from "./AuctionTypes";
 import { IAuctionSystem } from "./IAuctionSystem";
 
 export class AuctionSystem implements IAuctionSystem {
@@ -11,7 +11,6 @@ export class AuctionSystem implements IAuctionSystem {
 
   async HighestBid(productId: string) {
     if (!productId) return null;
-
     const highestBid = await this.database.GetHighestBid(productId);
 
     if (!highestBid) return null;
@@ -25,11 +24,11 @@ export class AuctionSystem implements IAuctionSystem {
     return auction;
   };
 
-  IncomingBid = async (auction: IAuction): Promise<IAuction | null> => {
-    if (!auction.productId) return null;
+  IncomingBid = async (bid: Bid): Promise<Bid | null> => {
+    if (!bid.productId) return null;
 
-    await this.database.SaveBid(auction);
+    await this.database.SaveBid(bid);
 
-    return auction;
+    return bid;
   };
 }
