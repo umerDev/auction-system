@@ -4,4 +4,5 @@ export interface IDatabase {
   SaveBid(bid: Bid);
   GetHighestBid(productName: string);
   Connect(): Promise<void | Error>;
+  SetAcceptedPrice(productId: string, acceptedPrice: number);
 }

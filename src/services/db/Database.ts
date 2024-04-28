@@ -25,8 +25,6 @@ export class Database implements IDatabase {
   }
 
   async SaveBid(bid: Bid) {
-    console.log("Saving bid", bid);
-
     const insertBid = await AuctionModel.findOneAndUpdate(
       { productId: bid.productId },
       {
@@ -73,5 +71,21 @@ export class Database implements IDatabase {
     const product = await AuctionModel.where("productId").equals(productId);
     const bids = product[0].bids.sort((a, b) => (a.price > b.price ? -1 : 1));
     return bids[0];
+  }
+
+  async SetAcceptedPrice(productId: string, acceptedPrice: number) {
+    await AuctionModel.findOneAndUpdate(
+      { productId: productId },
+      {
+        $push: {
+          acceptedPrice: acceptedPrice,
+        },
+      },
+      {
+        upsert: true,
+      }
+    );
+
+    return acceptedPrice;
   }
 }

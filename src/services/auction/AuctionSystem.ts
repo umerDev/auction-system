@@ -33,12 +33,27 @@ export class AuctionSystem implements IAuctionSystem {
   };
 
   IncomingBid = async (bid: Bid): Promise<Bid | null | BiddingState> => {
-    if (this.timer.getCompleted()) return BiddingState.FINISHED;
+    if (this.timer.getCompleted()) {
+      const highestBid = await this.HighestBid(bid.productId);
+      await this.SetAcceptedPrice(bid.productId, highestBid.price);
+      return BiddingState.FINISHED;
+    }
 
     if (!bid.productId) return null;
 
     await this.database.SaveBid(bid);
 
     return bid;
+  };
+
+  SetAcceptedPrice = async (productId: string, acceptedPrice: number) => {
+    if (!productId || !acceptedPrice) return;
+
+    const accepted = await this.database.SetAcceptedPrice(
+      productId,
+      acceptedPrice
+    );
+
+    return accepted;
   };
 }

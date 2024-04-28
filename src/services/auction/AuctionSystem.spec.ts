@@ -1,5 +1,4 @@
 import { anyString, DeepMockProxy, mockDeep } from "jest-mock-extended";
-import { IDatabase } from "../db/IDatabase";
 import { AuctionSystem } from "./AuctionSystem";
 import { IAuction, Bid } from "./AuctionTypes";
 import { Database } from "../db/Database";
@@ -84,7 +83,7 @@ describe("AuctionSystem().CreateAuction", () => {
     ).CreateAuction(newAuction);
 
     //assert
-    expect(createAuction).toMatchObject({
+    const toMatch = {
       _id: expect.any(String),
       acceptedPrice: 0,
       bidAccepted: false,
@@ -98,7 +97,9 @@ describe("AuctionSystem().CreateAuction", () => {
       productId: "headset",
       productName: "PS5 Headset",
       startingPrice: 40,
-    });
+    };
+
+    expect(createAuction).toMatchObject(toMatch);
   });
 
   it("should return null if no product name", async () => {
@@ -142,5 +143,30 @@ describe("AuctionSystem().HighestBid", () => {
 
     //assert
     expect(getHighestBid).toEqual(highestBid);
+  });
+});
+
+describe("AuctionSystem().SetAcceptedPrice", () => {
+  it("should update the accepted price for an item", async () => {
+    //arrange
+    const highestBid: Bid = {
+      bidId: "umer",
+      price: 3433,
+      productId: "ps5",
+    };
+
+    database.GetHighestBid.mockReturnValue(Promise.resolve(highestBid));
+    database.SetAcceptedPrice.mockResolvedValue(
+      Promise.resolve(highestBid.price)
+    );
+
+    //act
+    const getHighestBid = await new AuctionSystem(
+      database,
+      timer
+    ).SetAcceptedPrice(highestBid.productId, highestBid.price);
+
+    //assert
+    expect(getHighestBid).toEqual(3433);
   });
 });
