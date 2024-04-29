@@ -48,6 +48,37 @@ describe("AuctionSystem().IncomingBid", () => {
     //assert
     expect(acceptBid).toEqual(null);
   });
+
+  it("should return Bid to low if incoming bid is less than starting price", async () => {
+    //arrange
+    const auctionBid: Bid = {
+      bidId: "PS5",
+      productId: "ps5",
+      price: 232,
+    };
+
+    const auction: IAuction = {
+      productName: "Playstation 5",
+      productId: "ps5",
+      startingPrice: 400,
+      acceptedPrice: 0,
+      timeLimit: 30000,
+      bidAccepted: false,
+      bids: [],
+    };
+
+    database.GetStartingPrice.mockReturnValue(
+      Promise.resolve(auction.startingPrice)
+    );
+
+    //act
+    const bid = await new AuctionSystem(database, timer).IncomingBid(
+      auctionBid
+    );
+
+    //assert
+    expect(bid).toEqual(BiddingState.BID_TO_LOW);
+  });
 });
 
 describe("AuctionSystem().CreateAuction", () => {
@@ -144,5 +175,33 @@ describe("AuctionSystem().SetAcceptedPrice", () => {
 
     //assert
     expect(getHighestBid).toEqual(3433);
+  });
+});
+
+describe("AuctionSystem().GetStartingPrice", () => {
+  it("should get the starting price for an item", async () => {
+    //arrange
+    const auction: IAuction = {
+      productName: "Playstation 5",
+      productId: "ps5",
+      startingPrice: 400,
+      acceptedPrice: 0,
+      timeLimit: 30000,
+      bidAccepted: false,
+      bids: [],
+    };
+
+    database.GetStartingPrice.mockReturnValue(
+      Promise.resolve(auction.startingPrice)
+    );
+
+    //act
+    const getStartingPrice = await new AuctionSystem(
+      database,
+      timer
+    ).GetStartingPrice(auction.productId);
+
+    //assert
+    expect(getStartingPrice).toEqual(400);
   });
 });
