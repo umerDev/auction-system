@@ -6,4 +6,5 @@ export interface IDatabase {
   Connect(): Promise<void | Error>;
   SetAcceptedPrice(productId: string, acceptedPrice: number): Promise<number>;
   CreateAuction(auction: IAuction): Promise<AuctionState>;
+  GetStartingPrice(productId: string): Promise<number>;
 }

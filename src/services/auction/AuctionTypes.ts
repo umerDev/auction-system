@@ -19,6 +19,7 @@ export type Auctions = {
 };
 
 export enum BiddingState {
+  BID_TO_LOW = "BID TO LOW",
   FINISHED = "FINISHED",
 }
 

@@ -1,5 +1,10 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import { AuctionState, Bid, IAuction } from "../auction/AuctionTypes";
+import {
+  AuctionState,
+  Bid,
+  BiddingState,
+  IAuction,
+} from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
 import { AuctionModel } from "./Models";
 
@@ -65,6 +70,12 @@ export class Database implements IDatabase {
     );
 
     return AuctionState.CREATED;
+  }
+
+  async GetStartingPrice(productId: string) {
+    const product = await AuctionModel.where("productId").equals(productId);
+    const startingPrice = product[0].startingPrice;
+    return startingPrice;
   }
 
   async GetHighestBid(productId: string) {

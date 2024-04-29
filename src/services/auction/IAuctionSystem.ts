@@ -5,4 +5,5 @@ export interface IAuctionSystem {
   IncomingBid(bid: Bid): Promise<Bid | null | BiddingState>;
   HighestBid(productName: string): unknown;
   SetAcceptedPrice(productId: string, acceptedPrice: number): Promise<number>;
+  GetStartingPrice: (productId: string) => Promise<number>;
 }
