@@ -4,10 +4,9 @@ import { IAuction, Bid, BiddingState, AuctionState } from "./AuctionTypes";
 import { Database } from "../db/Database";
 import { ClassTimer } from "../timer/Timer";
 
-export const testDate = "2024-04-27T07:54:52.284Z";
-
 let database: DeepMockProxy<Database>;
 let timer: ClassTimer;
+let duration = 30;
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -15,7 +14,7 @@ afterEach(() => {
 
 beforeEach(() => {
   database = mockDeep<Database>();
-  timer = new ClassTimer(30);
+  timer = new ClassTimer(duration);
 });
 
 describe("AuctionSystem().IncomingBid", () => {
