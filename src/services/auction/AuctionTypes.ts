@@ -19,10 +19,11 @@ export type Auctions = {
 };
 
 export enum BiddingState {
-  BID_TO_LOW = "BID TO LOW",
-  FINISHED = "FINISHED",
+  SUBMITTED = "BID SUBMITTED",
+  TO_LOW = "BID TO LOW",
+  FINISHED = "BIDDING HAS FINISHED",
 }
 
 export enum AuctionState {
-  CREATED = "CREATED",
+  CREATED = "AUCTION CREATED",
 }

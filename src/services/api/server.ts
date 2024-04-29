@@ -28,9 +28,12 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
       return res.send({ message: "bidding has finished for this item" });
     }
 
+    if (bid === BiddingState.TO_LOW) {
+      return res.send({ message: "bid to low" });
+    }
+
     return res.send({
-      message: `created bid`,
-      bid,
+      message: `created bid for item`,
     });
   });
 

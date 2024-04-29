@@ -28,7 +28,7 @@ describe("AuctionSystem().IncomingBid", () => {
     );
 
     //assert
-    expect(acceptBid).toEqual(auctionBid);
+    expect(acceptBid).toEqual(BiddingState.SUBMITTED);
   });
 
   it("should return null if no product id", async () => {
@@ -76,7 +76,7 @@ describe("AuctionSystem().IncomingBid", () => {
     );
 
     //assert
-    expect(bid).toEqual(BiddingState.BID_TO_LOW);
+    expect(bid).toEqual(BiddingState.TO_LOW);
   });
 });
 
@@ -105,7 +105,7 @@ describe("AuctionSystem().CreateAuction", () => {
 
     //assert
 
-    expect(createAuction).toEqual("CREATED");
+    expect(createAuction).toEqual(AuctionState.CREATED);
   });
 
   it("should return null if no product name", async () => {

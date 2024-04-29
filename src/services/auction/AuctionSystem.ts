@@ -36,12 +36,12 @@ export class AuctionSystem implements IAuctionSystem {
     return await this.database.GetStartingPrice(productId);
   };
 
-  IncomingBid = async (bid: Bid): Promise<Bid | null | BiddingState> => {
+  IncomingBid = async (bid: Bid): Promise<null | BiddingState> => {
     if (!bid.productId) return null;
 
     const startingPrice = await this.GetStartingPrice(bid.productId); //can be cached
 
-    if (startingPrice > bid.price) return BiddingState.BID_TO_LOW;
+    if (startingPrice > bid.price) return BiddingState.TO_LOW;
 
     if (this.timer.getCompleted()) {
       const highestBid = await this.HighestBid(bid.productId);
@@ -51,7 +51,7 @@ export class AuctionSystem implements IAuctionSystem {
 
     await this.database.SaveBid(bid);
 
-    return bid;
+    return BiddingState.SUBMITTED;
   };
 
   SetAcceptedPrice = async (productId: string, acceptedPrice: number) => {
