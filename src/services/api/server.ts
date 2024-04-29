@@ -4,7 +4,6 @@ import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 
 const app: Application = express();
-const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,7 +49,5 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
     return res.sendStatus(400);
   });
 
-  app.listen(port, () => {
-    console.log(`Server is Live at http://localhost:${port}`);
-  });
+  return app;
 };

@@ -10,6 +10,7 @@ import { ClassTimer } from "./src/services/timer/Timer";
 dotenv.config();
 
 let auctionSystem: AuctionSystem;
+const port = process.env.PORT || 8000;
 
 // connect to db
 const setupDatabase = async () => {
@@ -40,7 +41,11 @@ const setupAuctions = async (database: Database) => {
 
   await setupAuctions(database);
 
-  AuctionRoutes(auctionSystem);
+  const app = AuctionRoutes(auctionSystem);
+
+  app.listen(port, () => {
+    console.log(`Server is Live at http://localhost:${port}`);
+  });
 })().catch((e: unknown) => {
   const error = e as Error;
   console.error(`error occured: ${error.message}`);
