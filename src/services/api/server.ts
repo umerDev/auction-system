@@ -28,7 +28,10 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
       return res.send({ message: "bidding has finished for this item" });
     }
 
-    return res.send({ message: `created bid for ${bid}` });
+    return res.send({
+      message: `created bid`,
+      bid,
+    });
   });
 
   app.post("/api/create-auction", async (req: Request, res: Response) => {
