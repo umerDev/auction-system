@@ -25,7 +25,7 @@ while an auction is the event where many people compete by bidding to buy someth
 
 # Design
 
-[![](https://mermaid.ink/img/pako:eNpVjz9rw0AMxb-K0JSAM6SQxUPBjjNkK6RbL4PwybHB5zM-HSXY_u49_yuJpvekn8RTj7nVjDEWtf3NS-oEvjPVQKjkJ_G5VLZxdzgcPofa2hZobQ2Q7hyLbzdmvy59XWFRWbqJaTvYxV3e3IS_-nR25369ens6YTMus_OconWnAbItGhzvr8OSSYdUA1z-gY8ZwAgNd4YqHV7tp45CKdmwwjhIzQX5WhSqZgwoebG3Z5NjLJ3nCH2rSTir6NGRwbig2vH4Bw1ZYI0?type=png)](https://mermaid.live/edit#pako:eNpVjz9rw0AMxb-K0JSAM6SQxUPBjjNkK6RbL4PwybHB5zM-HSXY_u49_yuJpvekn8RTj7nVjDEWtf3NS-oEvjPVQKjkJ_G5VLZxdzgcPofa2hZobQ2Q7hyLbzdmvy59XWFRWbqJaTvYxV3e3IS_-nR25369ens6YTMus_OconWnAbItGhzvr8OSSYdUA1z-gY8ZwAgNd4YqHV7tp45CKdmwwjhIzQX5WhSqZgwoebG3Z5NjLJ3nCH2rSTir6NGRwbig2vH4Bw1ZYI0)
+<img src="Design.svg">
 
 # Improvements
 
