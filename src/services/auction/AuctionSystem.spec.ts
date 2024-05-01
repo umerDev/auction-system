@@ -78,6 +78,29 @@ describe("AuctionSystem().IncomingBid", () => {
     //assert
     expect(bid).toEqual(BiddingState.TO_LOW);
   });
+
+  it("should return Bidding has finished if auction has ended", async () => {
+    //arrange
+    const auctionBid: Bid = {
+      bidId: "PS5",
+      productId: "ps5",
+      price: 232,
+    };
+
+    timer.getCompleted = jest.fn().mockReturnValue(true);
+    database.GetHighestBid.mockReturnValue(Promise.resolve(auctionBid));
+    database.SetAcceptedPrice.mockReturnValue(
+      Promise.resolve(auctionBid.price)
+    );
+
+    //act
+    const bid = await new AuctionSystem(database, timer).IncomingBid(
+      auctionBid
+    );
+
+    //assert
+    expect(bid).toEqual(BiddingState.FINISHED);
+  });
 });
 
 describe("AuctionSystem().CreateAuction", () => {

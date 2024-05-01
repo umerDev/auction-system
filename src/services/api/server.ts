@@ -1,5 +1,10 @@
 import { IAuctionSystem } from "../auction/IAuctionSystem";
-import { Bid, BiddingState, IAuction } from "../auction/AuctionTypes";
+import {
+  AuctionState,
+  Bid,
+  BiddingState,
+  IAuction,
+} from "../auction/AuctionTypes";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 
@@ -43,10 +48,10 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
 
     const createAuction = await AuctionSystem.CreateAuction(body);
 
-    if (createAuction) {
-      return res.sendStatus(201);
+    if (createAuction === AuctionState.CREATED) {
+      return res.status(201).send({ message: AuctionState.CREATED });
     }
-    return res.sendStatus(400);
+    return res.status(400).send({ message: AuctionState.FAILED });
   });
 
   return app;

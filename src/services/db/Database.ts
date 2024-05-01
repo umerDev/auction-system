@@ -54,7 +54,7 @@ export class Database implements IDatabase {
       bids: auction.bids,
     });
 
-    await AuctionModel.findOneAndUpdate(
+    const upsert = await AuctionModel.findOneAndUpdate(
       { productId: auction.productId },
       { $set: auctionDocument },
       {
@@ -62,7 +62,10 @@ export class Database implements IDatabase {
       }
     );
 
-    return AuctionState.CREATED;
+    if (upsert) {
+      return AuctionState.CREATED;
+    }
+    return AuctionState.FAILED;
   }
 
   async GetStartingPrice(productId: string) {

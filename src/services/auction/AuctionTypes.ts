@@ -26,4 +26,5 @@ export enum BiddingState {
 
 export enum AuctionState {
   CREATED = "AUCTION CREATED",
+  FAILED = "FAILED TO CREATE AUCTION",
 }
