@@ -75,7 +75,7 @@ describe("POST /api/bid/", () => {
       });
   });
 
-  it("should return bidding has finished", (done) => {
+  it("should return bid to low", (done) => {
     const bid: Bid = {
       bidId: "ps5",
       productId: "Playstation 5",
