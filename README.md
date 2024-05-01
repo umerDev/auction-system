@@ -1,3 +1,5 @@
+<img src="https://github.com/umerDev/AuctionSystem/actions/workflows/test.yaml/badge.svg">
+
 # Auction system
 
 Terms
