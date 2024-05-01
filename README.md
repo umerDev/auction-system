@@ -27,7 +27,7 @@ while an auction is the event where many people compete by bidding to buy someth
 
 # Design
 
-<img src="Design.svg">
+<img src="images/Design.svg">
 
 # Improvements
 
