@@ -6,11 +6,11 @@ import { Database } from "./src/services/db/Database";
 import { Auctions } from "./src/services/auction/AuctionTypes";
 import { AuctionRoutes } from "./src/services/api/server";
 import { ClassTimer } from "./src/services/timer/Timer";
+import { PORT } from "./src/services/config/Config";
 
 dotenv.config();
 
 let auctionSystem: AuctionSystem;
-const port = process.env.PORT || 8000;
 
 // connect to db
 const setupDatabase = async () => {
@@ -29,7 +29,7 @@ const setupAuctions = async (database: Database) => {
     const currentAuction = loadAuctions.auctions[i];
     auctionSystem = new AuctionSystem(
       database,
-      new ClassTimer(loadAuctions.auctions[i].timeLimit)
+      new ClassTimer(currentAuction.timeLimit)
     );
 
     await auctionSystem.CreateAuction(currentAuction);
@@ -43,8 +43,8 @@ const setupAuctions = async (database: Database) => {
 
   const app = AuctionRoutes(auctionSystem);
 
-  app.listen(port, () => {
-    console.log(`Server is Live at http://localhost:${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server is Live at http://localhost:${PORT}`);
   });
 })().catch((e: unknown) => {
   const error = e as Error;

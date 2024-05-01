@@ -2,18 +2,16 @@ import mongoose, { HydratedDocument } from "mongoose";
 import { AuctionState, Bid, IAuction } from "../auction/AuctionTypes";
 import { IDatabase } from "./IDatabase";
 import { AuctionModel } from "./Models";
+import { MONGO_PASSWORD, MONGO_URL, MONGO_USER } from "../config/Config";
 
 export class Database implements IDatabase {
   async Connect(): Promise<void | Error> {
     try {
-      const connection = await mongoose.connect(
-        "mongodb://mongo:27017/auction",
-        {
-          user: process.env.MONGODB_USER,
-          pass: process.env.MONGODB_PASSWORD,
-          authSource: "admin",
-        }
-      );
+      const connection = await mongoose.connect(MONGO_URL, {
+        user: MONGO_USER,
+        pass: MONGO_PASSWORD,
+        authSource: "admin",
+      });
       if (connection) {
         console.log("Database Connected Successfully...");
       }
