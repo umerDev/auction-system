@@ -15,9 +15,10 @@ while an auction is the event where many people compete by bidding to buy someth
 
 # How to run
 
-1. `docker compose up` - start
-2. use postman collection to submit bid and get highest bid
-3. `docker-compose down -v` - terminate
+1. create a `.env` - see `.example.env`
+2. `docker compose up` - start
+3. use postman collection to submit bid and get highest bid
+4. `docker-compose down -v` - terminate
 
 # Routes
 
