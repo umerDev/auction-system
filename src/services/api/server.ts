@@ -41,18 +41,5 @@ export const AuctionRoutes = (AuctionSystem: IAuctionSystem) => {
     });
   });
 
-  app.post("/api/create-auction", async (req: Request, res: Response) => {
-    const body = req.body as unknown as IAuction;
-
-    if (!body) return res.status;
-
-    const createAuction = await AuctionSystem.CreateAuction(body);
-
-    if (createAuction === AuctionState.CREATED) {
-      return res.status(201).send({ message: AuctionState.CREATED });
-    }
-    return res.status(400).send({ message: AuctionState.FAILED });
-  });
-
   return app;
 };

@@ -103,64 +103,6 @@ describe("POST /api/bid/", () => {
   });
 });
 
-describe("POST /api/create-auction", () => {
-  it("should create an auction", (done) => {
-    const auction: IAuction = {
-      productName: "PS5 Headset",
-      productId: "headset",
-      startingPrice: 40,
-      acceptedPrice: 0,
-      timeLimit: 30000,
-      bidAccepted: false,
-      bids: [],
-    };
-
-    mockAuctionSystem.CreateAuction = jest
-      .fn()
-      .mockReturnValue(AuctionState.CREATED);
-
-    request(auctionRoutes)
-      .post("/api/create-auction")
-      .send(auction)
-      .expect((res) => {
-        expect(res.status).toEqual(201);
-        expect(res.body).toMatchObject({ message: "AUCTION CREATED" });
-      })
-      .end((err: unknown, _res: Response) => {
-        if (err) return done(err);
-        return done();
-      });
-  });
-
-  it("should fail to create an auction", (done) => {
-    const auction: IAuction = {
-      productName: "PS5 Headset",
-      productId: "headset",
-      startingPrice: 40,
-      acceptedPrice: 0,
-      timeLimit: 30000,
-      bidAccepted: false,
-      bids: [],
-    };
-
-    mockAuctionSystem.CreateAuction = jest
-      .fn()
-      .mockReturnValue(AuctionState.FAILED);
-
-    request(auctionRoutes)
-      .post("/api/create-auction")
-      .send(auction)
-      .expect((res: Response) => {
-        expect(res.status).toEqual(400);
-        expect(res.body).toMatchObject({ message: "FAILED TO CREATE AUCTION" });
-      })
-      .end((err: unknown, _res: Response) => {
-        if (err) return done(err);
-        return done();
-      });
-  });
-});
-
 describe("GET /api/highest-bid/", () => {
   it("should get the highest bid", (done) => {
     const bid: Bid = {

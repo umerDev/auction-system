@@ -24,7 +24,6 @@ while an auction is the event where many people compete by bidding to buy someth
 
 1. `/api/bid/` - submit a bid - `POST`
 2. `/api/highest-bid?productId=headset` - get highest bid for item `GET`
-3. `/api/create-auction` - create an auction `POST`
 
 # Design
 
