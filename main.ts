@@ -1,15 +1,19 @@
 import * as dotenv from "dotenv";
 
 import { AuctionRoutes } from "./src/services/api/server";
-import { PORT } from "./src/services/config/Config";
-import { SetupDatabase, SetupAuctions } from "./src/services/setup/Setup";
+import { mongoConfig, PORT } from "./src/services/config/Config";
+import { Setup } from "./src/services/setup/Setup";
+import { Database } from "./src/services/db/Database";
 
 dotenv.config();
+const auctionFilePath = "data/Auctions.json";
 
 (async () => {
-  const database = await SetupDatabase();
+  const database = new Database();
 
-  const auctionSystem = await SetupAuctions(database);
+  const setup = new Setup(database, mongoConfig);
+  await setup.Database();
+  const auctionSystem = await setup.Auctions(auctionFilePath);
 
   const app = AuctionRoutes(auctionSystem);
 
