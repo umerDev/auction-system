@@ -1,4 +1,4 @@
-import { anyString, DeepMockProxy, mockDeep } from "jest-mock-extended";
+import { DeepMockProxy, mockDeep } from "jest-mock-extended";
 import { AuctionSystem } from "./AuctionSystem";
 import { IAuction, Bid, BiddingState, AuctionState } from "./AuctionTypes";
 import { Database } from "../db/Database";

@@ -3,12 +3,7 @@ import request from "supertest";
 import { AuctionRoutes } from "./server";
 import { mockDeep } from "jest-mock-extended";
 import { AuctionSystem } from "../auction/AuctionSystem";
-import {
-  AuctionState,
-  Bid,
-  BiddingState,
-  IAuction,
-} from "../auction/AuctionTypes";
+import { Bid, BiddingState } from "../auction/AuctionTypes";
 import { IAuctionSystem } from "../auction/IAuctionSystem";
 import { Application } from "express";
 
