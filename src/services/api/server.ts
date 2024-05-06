@@ -1,10 +1,5 @@
 import { IAuctionSystem } from "../auction/IAuctionSystem";
-import {
-  AuctionState,
-  Bid,
-  BiddingState,
-  IAuction,
-} from "../auction/AuctionTypes";
+import { Bid, BiddingState } from "../auction/AuctionTypes";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 
