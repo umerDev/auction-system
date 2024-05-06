@@ -20,6 +20,11 @@ while an auction is the event where many people compete by bidding to buy someth
 3. use postman collection to submit bid and get highest bid
 4. `docker-compose down -v` - terminate
 
+# How to run tests
+
+1. run `npm i` in terminal
+2. npm run test
+
 # Routes
 
 1. `/api/bid/` - submit a bid - `POST`
