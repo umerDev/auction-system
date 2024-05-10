@@ -6,13 +6,13 @@ export class ClassTimer {
     this.duration = duration;
   }
 
-  startTimer() {
+  Start() {
     setTimeout(() => {
       this.setCompleted(true);
     }, this.duration);
   }
 
-  getCompleted() {
+  GetCompleted() {
     return this.completed;
   }
 

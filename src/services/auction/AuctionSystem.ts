@@ -27,7 +27,7 @@ export class AuctionSystem implements IAuctionSystem {
 
     const createAuction = await this.database.CreateAuction(auction);
 
-    this.timer.startTimer();
+    this.timer.Start();
 
     return createAuction;
   };
@@ -43,7 +43,7 @@ export class AuctionSystem implements IAuctionSystem {
 
     if (startingPrice > bid.price) return BiddingState.TO_LOW;
 
-    if (this.timer.getCompleted()) {
+    if (this.timer.GetCompleted()) {
       const highestBid = await this.HighestBid(bid.productId);
       await this.SetAcceptedPrice(bid.productId, highestBid.price);
       return BiddingState.FINISHED;

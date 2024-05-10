@@ -87,7 +87,7 @@ describe("AuctionSystem().IncomingBid", () => {
       price: 232,
     };
 
-    timer.getCompleted = jest.fn().mockReturnValue(true);
+    timer.GetCompleted = jest.fn().mockReturnValue(true);
     database.GetHighestBid.mockReturnValue(Promise.resolve(auctionBid));
     database.SetAcceptedPrice.mockReturnValue(
       Promise.resolve(auctionBid.price)

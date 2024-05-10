@@ -6,11 +6,11 @@ describe("Timer", () => {
     let timer = new ClassTimer(3);
 
     //act
-    timer.startTimer();
+    timer.Start();
 
     //assert
     setTimeout(() => {
-      expect(timer.getCompleted()).toBeTruthy();
+      expect(timer.GetCompleted()).toBeTruthy();
     }, 3);
   });
 });

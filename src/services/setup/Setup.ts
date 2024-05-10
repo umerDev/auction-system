@@ -8,15 +8,15 @@ import { MongoConfig } from "../config/Config";
 
 export class Setup {
   private database: Database;
-  private mongoSetup: MongoConfig;
+  private mongoConfig: MongoConfig;
 
   constructor(database: Database, mongoSetup: MongoConfig) {
     this.database = database;
-    this.mongoSetup = mongoSetup;
+    this.mongoConfig = mongoSetup;
   }
 
   Database = async () => {
-    return await this.database.Connect(this.mongoSetup);
+    return await this.database.Connect(this.mongoConfig);
   };
 
   LoadAuctions = (auctionFile: fs.PathOrFileDescriptor): Auctions =>

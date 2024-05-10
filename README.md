@@ -23,7 +23,7 @@ while an auction is the event where many people compete by bidding to buy someth
 # How to run tests
 
 1. run `npm i` in terminal
-2. npm run test
+2. `npm run test`
 
 # Routes
 
